@@ -1,3 +1,4 @@
+.gitattributes
 bashrc
 bat
 c
@@ -32,6 +33,7 @@ pch
 php
 pl
 plist
+po
 pro
 properties
 proto

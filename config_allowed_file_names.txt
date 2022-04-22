@@ -1,10 +1,13 @@
 Appfile
 Dockerfile
 Gemfile
+Jenkinsfile
 Makefile
 Matchfile
+Rakefile
 contents
 control
+gradlew
 gunicorn
 postinst
 postrm
