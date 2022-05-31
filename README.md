@@ -1,4 +1,4 @@
-# scfind
+# Source Code Find (scfind)
 
 [![build](https://github.com/m-manu/scfind/actions/workflows/build.yml/badge.svg)](https://github.com/m-manu/scfind/actions/workflows/build.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/m-manu/scfind)](https://goreportcard.com/report/github.com/m-manu/scfind)
