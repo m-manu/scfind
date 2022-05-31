@@ -10,9 +10,16 @@ files. It's ultra light and very fast.
 
 ## How to install?
 
-```shell
-go install github.com/m-manu/scfind@latest
-```
+1. Install Go version at least **1.16**
+    * See: [Go installation instructions](https://go.dev/doc/install)
+2. Run command:
+   ```bash
+   go install github.com/m-manu/scfind@latest
+   ```
+3. Add following line in your `.bashrc`/`.zshrc` file:
+   ```bash
+   export PATH="$PATH:$HOME/go/bin"
+   ```
 
 ## Usage
 
@@ -41,7 +48,7 @@ scfind ~/Programming
 scfind . | xargs grep --color "LinkedHashSet"
 ```
 
-# How does this work?
+## How does this work?
 
 scfind traverses file tree with source code awareness in following ways:
 
