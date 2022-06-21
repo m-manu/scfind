@@ -1,27 +1,34 @@
-# Source Code Find (scfind)
+# scfind
 
-[![build](https://github.com/m-manu/scfind/actions/workflows/build.yml/badge.svg)](https://github.com/m-manu/scfind/actions/workflows/build.yml)
+[![Build and test](https://github.com/m-manu/scfind/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/m-manu/scfind/actions/workflows/build-and-test.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/m-manu/scfind)](https://goreportcard.com/report/github.com/m-manu/scfind)
 [![Go Reference](https://pkg.go.dev/badge/github.com/m-manu/scfind.svg)](https://pkg.go.dev/github.com/m-manu/scfind)
 [![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](./LICENSE)
+
+## Why?
+
+`find` command in unix-like OSes is great. But, it's not helpful for searching for source code files or for searching
+inside source code files (when used along with `grep). So, we need a specialized command.
+
+## What?
 
 **scfind**, which stands for '**s**ource **c**ode **find**', is a replacement for `find` command for _source code_
 files. It's ultra light and very fast.
 
 ## How to install?
 
-1. Install Go version at least **1.16**
+1. Install Go version at least **1.17**
     * See: [Go installation instructions](https://go.dev/doc/install)
 2. Run command:
    ```bash
-   go install github.com/m-manu/scfind@latest
+   go install github.com/m-manu/gscfind@latest
    ```
 3. Add following line in your `.bashrc`/`.zshrc` file:
    ```bash
    export PATH="$PATH:$HOME/go/bin"
    ```
 
-## Usage
+## How to use?
 
 Running `scfind -h` shows this help message:
 
@@ -48,7 +55,7 @@ scfind ~/Programming
 scfind . | xargs grep --color "LinkedHashSet"
 ```
 
-## How does this work?
+# How does this work?
 
 scfind traverses file tree with source code awareness in following ways:
 
