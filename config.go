@@ -18,32 +18,21 @@ var ignoredDirectoriesRaw string
 //go:embed config_ignored_directories_with_peer_file_names.json
 var ignoredDirectoriesWithPeerFileNamesRaw []byte
 
-type stringLookup map[string]struct{}
-
-var allowedFileExtensions stringLookup
-var allowedFileNames stringLookup
-var ignoredDirectories stringLookup
+var allowedFileExtensions set[string]
+var allowedFileNames set[string]
+var ignoredDirectories set[string]
 var ignoredDirectoriesWithPeerFileNames map[string][]string
 
-func (m *stringLookup) add(entry string) {
-	(*m)[entry] = struct{}{}
-}
-
-func (m *stringLookup) contains(entry string) bool {
-	_, b := (*m)[entry]
-	return b
-}
-
-func toLookupMap(ldEntries string) stringLookup {
+func toLookupMap(ldEntries string) set[string] {
 	entries := strings.Split(ldEntries, "\n")
-	m := make(stringLookup, len(entries))
-	for _, s := range entries {
-		if strings.TrimSpace(s) == "" {
+	s := newSet[string](len(entries))
+	for _, entry := range entries {
+		if strings.TrimSpace(entry) == "" {
 			continue
 		}
-		m.add(s)
+		s.add(entry)
 	}
-	return m
+	return s
 }
 
 func init() {

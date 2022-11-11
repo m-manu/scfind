@@ -17,7 +17,7 @@ files. It's ultra light and very fast.
 
 ## How to install?
 
-1. Install Go version at least **1.17**
+1. Install Go version at least **1.18**
     * See: [Go installation instructions](https://go.dev/doc/install)
 2. Run command:
    ```bash
@@ -59,15 +59,15 @@ scfind . | xargs grep --color "LinkedHashSet"
 
 scfind traverses file tree with source code awareness in following ways:
 
-1. Skips scanning certain directories (case sensitive)
-    * e.g. `.git`, `.idea` etc.
-    * see [full list](./config_ignored_directories.txt)
-2. Skips scanning certain directories with specific peer files (case sensitive)
-    * e.g. skip `build` sub-directory when `build.gradle` exists in the same directory etc.
-    * see [full list](./config_ignored_directories_with_peer_file_names.json)
-3. Lists out files only with known source code file extensions (case insensitive)
-    * e.g.`.java`, `.go`, `.py` etc.
+1. Lists out files only with known source code and configuration file extensions (case insensitive)
+    * e.g.`.java`, `.go`, `.py`, `.yml` etc.
     * see [full list](./config_allowed_file_extensions.txt)
-4. Lists out files with certain names (case sensitive)
+2. Lists out files with certain names (case sensitive)
     * e.g. `postinst`, `Dockerfile` etc.
     * see [full list](./config_allowed_file_names.txt)
+3. Skips scanning certain directories (case sensitive)
+    * e.g. `.git`, `.idea`, `.gradle` etc.
+    * see [full list](./config_ignored_directories.txt)
+4. Skips scanning certain directories with specific peer files (case sensitive)
+    * e.g. skip `build` sub-directory when `build.gradle` exists in the same directory etc.
+    * see [full list](./config_ignored_directories_with_peer_file_names.json)
