@@ -7,8 +7,8 @@
 
 ## Why?
 
-`find` command in unix-like OSes is great. But, it's not helpful for searching for source code files or for searching
-inside source code files (when used along with `grep). So, we need a specialized command.
+`find` command in unix-like OSes is great. But, it is not helpful in searching for source code files or in searching
+inside source code files (when used along with `grep`). So, we need a specialized command.
 
 ## What?
 
@@ -21,7 +21,7 @@ files. It's ultra light and very fast.
     * See: [Go installation instructions](https://go.dev/doc/install)
 2. Run command:
    ```bash
-   go install github.com/m-manu/gscfind@latest
+   go install github.com/m-manu/scfind@latest
    ```
 3. Add following line in your `.bashrc`/`.zshrc` file:
    ```bash
@@ -55,19 +55,19 @@ scfind ~/Programming
 scfind . | xargs grep --color "LinkedHashSet"
 ```
 
-# How does this work?
+## How does this work?
 
-scfind traverses file tree with source code awareness in following ways:
+`scfind` command traverses file tree with source code awareness in following ways:
 
-1. Lists out files only with known source code and configuration file extensions (case insensitive)
+1. Scans for files with known source code and configuration file extensions (case insensitive)
     * e.g.`.java`, `.go`, `.py`, `.yml` etc.
-    * see [full list](./config_allowed_file_extensions.txt)
-2. Lists out files with certain names (case sensitive)
+    * see [full list](config/allowed_file_extensions.txt)
+2. Scans for files with certain names (case sensitive)
     * e.g. `postinst`, `Dockerfile` etc.
-    * see [full list](./config_allowed_file_names.txt)
+    * see [full list](config/allowed_file_names.txt)
 3. Skips scanning certain directories (case sensitive)
     * e.g. `.git`, `.idea`, `.gradle` etc.
-    * see [full list](./config_ignored_directories.txt)
+    * see [full list](config/ignored_directories.txt)
 4. Skips scanning certain directories with specific peer files (case sensitive)
     * e.g. skip `build` sub-directory when `build.gradle` exists in the same directory etc.
-    * see [full list](./config_ignored_directories_with_peer_file_names.json)
+    * see [full list](config/ignored_directories_with_peer_file_names.json)

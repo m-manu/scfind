@@ -3,19 +3,20 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
+	"fmt"
 	"strings"
 )
 
-//go:embed config_allowed_file_extensions.txt
+//go:embed config/allowed_file_extensions.txt
 var allowedFileExtensionsRaw string
 
-//go:embed config_allowed_file_names.txt
+//go:embed config/allowed_file_names.txt
 var allowedFileNamesRaw string
 
-//go:embed config_ignored_directories.txt
+//go:embed config/ignored_directories.txt
 var ignoredDirectoriesRaw string
 
-//go:embed config_ignored_directories_with_peer_file_names.json
+//go:embed config/ignored_directories_with_peer_file_names.json
 var ignoredDirectoriesWithPeerFileNamesRaw []byte
 
 var allowedFileExtensions set[string]
@@ -23,21 +24,33 @@ var allowedFileNames set[string]
 var ignoredDirectories set[string]
 var ignoredDirectoriesWithPeerFileNames map[string][]string
 
-func toLookupMap(ldEntries string) set[string] {
-	entries := strings.Split(ldEntries, "\n")
-	s := newSet[string](len(entries))
-	for _, entry := range entries {
-		if strings.TrimSpace(entry) == "" {
-			continue
+/**
+Note: Calls to panic function in this file are meant for catching 'bugs related to configuration files' during `go test`
+*/
+
+func toLookupMap(contents string, fileName string) set[string] {
+	entries := newSet[string](100)
+	lines := strings.Split(contents, "\n")
+	for lineNumber, lineText := range lines {
+		if strings.TrimSpace(lineText) == "" {
+			panic(fmt.Sprintf("Issue in file %s: Line %d is empty", fileName, lineNumber+1))
 		}
-		s.add(entry)
+		if entries.contains(lineText) {
+			panic(fmt.Sprintf("Issue in file %s at line %d: Entry \"%s\" is repeated",
+				fileName, lineNumber+1, lineText),
+			)
+		}
+		entries.add(lineText)
 	}
-	return s
+	return entries
 }
 
 func init() {
-	allowedFileExtensions = toLookupMap(allowedFileExtensionsRaw)
-	allowedFileNames = toLookupMap(allowedFileNamesRaw)
-	ignoredDirectories = toLookupMap(ignoredDirectoriesRaw)
-	_ = json.Unmarshal(ignoredDirectoriesWithPeerFileNamesRaw, &ignoredDirectoriesWithPeerFileNames)
+	allowedFileExtensions = toLookupMap(allowedFileExtensionsRaw, "allowed_file_extensions.txt")
+	allowedFileNames = toLookupMap(allowedFileNamesRaw, "allowed_file_names.txt")
+	ignoredDirectories = toLookupMap(ignoredDirectoriesRaw, "ignored_directories.txt")
+	err := json.Unmarshal(ignoredDirectoriesWithPeerFileNamesRaw, &ignoredDirectoriesWithPeerFileNames)
+	if err != nil {
+		panic(fmt.Sprintf("Unable to parse config file ignored_directories_with_peer_file_names.json: %+v", err))
+	}
 }

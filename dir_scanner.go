@@ -10,7 +10,7 @@ import (
 
 var prefix string
 
-var applyFunc = printFileName
+var applyFunc func(string)
 
 func walkFunction(path string, de fs.DirEntry, err error) error {
 	if err != nil {
