@@ -17,7 +17,7 @@ files. It's ultra light and very fast.
 
 ## How to install?
 
-1. Install Go version at least **1.18**
+1. Install Go version at least **1.21**
     * See: [Go installation instructions](https://go.dev/doc/install)
 2. Run command:
    ```bash
