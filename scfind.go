@@ -1,4 +1,5 @@
 /*
+*
 scfind, which stands for 'source code find', is a replacement for 'find' command for source code files
 */
 package main
@@ -11,7 +12,8 @@ import (
 )
 
 const (
-	exitCodeInvalidNumArgs = iota + 1
+	exitSuccess = iota
+	exitCodeInvalidNumArgs
 	exitCodeScanFailed
 	exitCodeInputDirectoryNotReadable
 	exitCodeSymLinkEvalFailed
@@ -20,10 +22,10 @@ const (
 const helpMessage = `scfind is a 'find' command for source code files
 
 Usage: 
-	scfind DIRECTORY_PATH
+	scfind $DIRECTORY_PATH
 
 where,
-	DIRECTORY_PATH is path to a readable directory that
+	$DIRECTORY_PATH is path to a readable directory that
 	you want to scan for source code files
 
 For more details: https://github.com/m-manu/scfind`
@@ -37,17 +39,30 @@ func printFileName(path string) {
 	fmt.Printf("%s%s\n", prefix, path)
 }
 
-func main() {
-	flag.Usage = func() {
-		fmt.Println(helpMessage)
-	}
+var flags struct {
+	isHelp bool
+}
+
+func setupAndParseFlags() (isHelp bool, arg0 string) {
+	flag.BoolVar(&flags.isHelp, "h", false, "print help with version information and exit")
 	flag.Parse()
+	if flags.isHelp {
+		return true, ""
+	}
 	if flag.NArg() > 1 || flag.NArg() < 1 {
 		showErrorMessageAndExit(
 			fmt.Sprintf("error: accepts only one argument (directory path)"), exitCodeInvalidNumArgs)
 		return
 	}
-	directory := flag.Arg(0)
+	return false, flag.Arg(0)
+}
+
+func main() {
+	isHelp, directory := setupAndParseFlags()
+	if isHelp {
+		fmt.Println(helpMessage)
+		os.Exit(exitSuccess)
+	}
 	dErr := checkDirectoryIsReadable(directory)
 	if dErr != nil {
 		showErrorMessageAndExit(

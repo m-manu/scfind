@@ -1,3 +1,3 @@
 module github.com/m-manu/scfind
 
-go 1.21
+go 1.24

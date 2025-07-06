@@ -17,7 +17,7 @@ files. It's ultra light and very fast.
 
 ## How to install?
 
-1. Install Go version at least **1.21**
+1. Install Go version at least **1.24**
     * See: [Go installation instructions](https://go.dev/doc/install)
 2. Run command:
    ```bash
@@ -36,10 +36,10 @@ Running `scfind -h` shows this help message:
 scfind is a 'find' command for source code files
 
 Usage: 
-	scfind DIRECTORY_PATH
+	scfind $DIRECTORY_PATH
 
 where,
-	DIRECTORY_PATH is path to a readable directory that
+	$DIRECTORY_PATH is path to a readable directory that
 	you want to scan for source code files
 
 For more details: https://github.com/m-manu/scfind
@@ -55,19 +55,25 @@ scfind ~/Programming
 scfind . | xargs grep --color "LinkedHashSet"
 ```
 
+## How to build?
+
+```shell
+go build && go test ./...
+```
+
 ## How does this work?
 
 `scfind` command traverses file tree with source code awareness in following ways:
 
-1. Scans for files with known source code and configuration file extensions (case insensitive)
+1. Scans for files with known source code and configuration file extensions (case-insensitive)
     * e.g.`.java`, `.go`, `.py`, `.yml` etc.
     * see [full list](config/allowed_file_extensions.txt)
-2. Scans for files with certain names (case sensitive)
+2. Scans for files with certain names (case-sensitive)
     * e.g. `postinst`, `Dockerfile` etc.
     * see [full list](config/allowed_file_names.txt)
-3. Skips scanning certain directories (case sensitive)
+3. Skips scanning certain directories (case-sensitive)
     * e.g. `.git`, `.idea`, `.gradle` etc.
     * see [full list](config/ignored_directories.txt)
-4. Skips scanning certain directories with specific peer files (case sensitive)
-    * e.g. skip `build` sub-directory when `build.gradle` exists in the same directory etc.
+4. Skips scanning certain directories with specific peer files (case-sensitive)
+    * e.g. skip `build` subdirectory when `build.gradle` exists in the same directory etc.
     * see [full list](config/ignored_directories_with_peer_file_names.json)

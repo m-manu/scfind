@@ -2,17 +2,53 @@
   "venv": [
     "requirements.txt"
   ],
+  ".venv": [
+    "requirements.txt"
+  ],
   "node_modules": [
     "package.json"
   ],
   "vendor": [
     "go.mod",
-    "Gopkg.toml"
+    "Gopkg.toml",
+    "composer.json",
+    "Gemfile"
   ],
   "target": [
-    "pom.xml"
+    "pom.xml",
+    "Cargo.toml"
   ],
   "build": [
-    "build.gradle"
+    "build.gradle",
+    "CMakeLists.txt"
+  ],
+  "cmake-build-debug": [
+    "CMakeLists.txt"
+  ],
+  "DerivedData": [
+    ".xcodeproj"
+  ],
+  ".dart_tool": [
+    "pubspec.yaml"
+  ],
+  "bazel-bin": [
+    "WORKSPACE"
+  ],
+  "bazel-out": [
+    "WORKSPACE"
+  ],
+  "dist": [
+    "package.json",
+    "setup.py",
+    "pyproject.toml"
+  ],
+  ".npm": [
+    "package.json"
+  ],
+  ".yarn": [
+    "package.json"
+  ],
+  "out": [
+    "tsconfig.json"
   ]
 }
